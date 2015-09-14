@@ -1,5 +1,7 @@
 # react-smallgrid
-A datatable for react
+A datatable for react (bootstrap themed)
+
+Features: pagination, ordering, formatting, editing
 
 ## Installation
 ---
@@ -41,6 +43,9 @@ Full example (incl lodash and bootstrap):
 ---
 
 ### Foreword (in the future)
+
+The table can only be ordered by one column; I'll probably add it to support multiple
+columns in the futre.
 
 The table is hardcoded with pagination. Currently the row limit/page size is hardcoded at 20. I'll
 probably change it in the future, and you can also easily change it and run the gulp.

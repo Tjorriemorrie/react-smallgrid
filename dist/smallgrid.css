@@ -7,6 +7,9 @@
 .table-sort th.sort-asc:before {
   content: '\2191';
 }
+.table-sort input {
+  width: 90%;
+}
 .table-hl td:hover {
   background: #f7f7f7;
 }

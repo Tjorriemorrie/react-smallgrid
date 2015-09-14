@@ -36,17 +36,20 @@ var SmallGrid = React.createClass({
             this.props.rows = [];
             this.props.cols = [];
         }
+
+        this.setTotalPages();
     },
 
-    componentWillReceiveProps: function (nextProps) {
+    componentWillUpdate: function () {
+        console.info('[SmallGrid] componentWillUpdate');
+        this.setTotalPages();
+    },
 
-        // update total pages
-        if (nextProps.rows.length != this.props.rows.length) {
-            var total_pages = Math.ceil(nextProps.rows.length / this.state.limit);
-            if (this.state.total_pages != total_pages) {
-                console.info('[SmallGrid] componentWillReceiveProps: total_pages', total_pages);
-                this.setState({total_pages: total_pages});
-            }
+    setTotalPages: function () {
+        var total_pages = Math.ceil(this.props.rows.length / this.state.limit);
+        if (this.state.total_pages != total_pages) {
+            console.info('[SmallGrid] setTotalPages: total_pages', total_pages);
+            this.setState({total_pages: total_pages});
         }
     },
 
@@ -85,7 +88,7 @@ var SmallGrid = React.createClass({
         // slice data by pagination
         var rows = this.props.rows.slice(this.getStart(), this.getEnd());
 
-        console.info('[SmallGrid] getRows', rows);
+//        console.info('[SmallGrid] getRows', rows);
         return rows;
     },
 
@@ -132,7 +135,7 @@ var SmallGrid = React.createClass({
         e.preventDefault();
 
         this.editExit();
-//        console.info('[SmallGrid] editValue: exiting editing');
+        console.info('[SmallGrid] editValue: exiting editing');
 
         var form = $(React.findDOMNode(this.refs.formEdit));
         console.info('[SmallGrid] editValue: form', form);
@@ -193,7 +196,7 @@ var SmallGrid = React.createClass({
                 pages.push(i);
             }
         }
-//        console.info('[SmallGrid] getPages: pages', pages);
+        console.info('[SmallGrid] getPages: pages', pages);
         return pages;
     },
 
@@ -227,20 +230,21 @@ var SmallGrid = React.createClass({
     },
 
     sortRows: function () {
-        console.info('[SmallGrid] sortRows', this.props.sort_by, this.props.sort_dir);
+        console.info('[SmallGrid] sortRows', this.state.sort_by, this.state.sort_dir);
 
-        if (this.props.sort_by) {
+        if (this.state.sort_by) {
             console.info('[SmallGrid] sortRows: sorting');
             this.props.rows.sort(function (a, b) {
                 var x = a[this.state.sort_by]; var y = b[this.state.sort_by];
-                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                if (this.state.sort_dir == 'desc') {
+                    return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+                } else {
+                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                }
             }.bind(this));
 
-            if (this.state.sort_dir == 'desc') {
-                this.props.rows = this.props.rows.reverse();
-            }
         } else {
-            console.info('[SmallGrid] sortRows: nothing to sorty by');
+            console.info('[SmallGrid] sortRows: nothing to sort by');
         }
     },
 
