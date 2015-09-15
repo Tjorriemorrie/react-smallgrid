@@ -3,6 +3,7 @@ A datatable for react (bootstrap themed)
 
 Features: pagination, ordering, formatting, editing
 
+
 ## Installation
 ---
 
@@ -10,7 +11,8 @@ Install via bower:
    
     bower install -S react-smallgrid
     
-
+    
+    
 #### Dependencies
 
 This library requires [lodash](https://www.lodash.com):
@@ -42,7 +44,7 @@ Full example (incl lodash and bootstrap):
 ## Basic Usage
 ---
 
-### Foreword (in the future)
+### Foreword
 
 The table can only be ordered by one column; I'll probably add it to support multiple
 columns in the futre.
@@ -182,19 +184,3 @@ will also be stopped. The function provided to edit will then receive three para
 ![alt tag](examples/5_usage_advanced_editing_values_1.png)
 
 ![alt tag](examples/5_usage_advanced_editing_values_2.png)
-
-
-## Performance
----
-
-I don't care. That's your problem. I suggest keeping it small, hence the name.
-
-## Testing
----
-
-Testing is for losers. Fuck you.
-
-## Licence
----
-
-Like I understand that shit. Probably MIT
