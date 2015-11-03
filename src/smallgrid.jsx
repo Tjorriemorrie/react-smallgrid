@@ -1,4 +1,5 @@
 var SmallGrid = React.createClass({
+
     getInitialState: function () {
         console.info('[SmallGrid] getInitialState');
         return {
