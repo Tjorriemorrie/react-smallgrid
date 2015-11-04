@@ -28,7 +28,7 @@ module.exports = function (grunt) {
 			options: {
 				transform: [
 					['babelify', {
-						loose: 'all'
+						presets: ['react', 'es2015']
 					}]
 				]
 			},
@@ -43,7 +43,7 @@ module.exports = function (grunt) {
 
 			examples: {
 				files: {
-					'./examples/1_basic_minimal.js': './src/jsx/examples/BasicMinimal.jsx',
+					'./examples/1_basic_minimal.js': './src/examples/BasicMinimal.jsx',
 				}
 			},
 		},
