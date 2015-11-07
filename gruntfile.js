@@ -43,7 +43,8 @@ module.exports = function (grunt) {
 
 			examples: {
 				files: {
-					'./examples/1_basic_minimal.js': './src/examples/BasicMinimal.jsx',
+					'./examples/1_basic_minimal.js': './src/examples/1_BasicMinimal.jsx',
+					'./examples/2_basic_headings.js': './src/examples/2_BasicHeadings.jsx',
 				}
 			},
 		},
