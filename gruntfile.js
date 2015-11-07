@@ -36,7 +36,7 @@ module.exports = function (grunt) {
 			jsx: {
 				files: {
 					'./dist/js/smallgrid.js': [
-						'./src/jsx/Smallgrid.jsx',
+						'./src/smallgrid.jsx',
 					]
 				}
 			},
