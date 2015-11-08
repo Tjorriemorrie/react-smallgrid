@@ -1,4 +1,7 @@
 # react-smallgrid
+
+##__Deprecated version__
+
 A datatable for react (bootstrap themed)
 
 Features: pagination, ordering, formatting, editing
