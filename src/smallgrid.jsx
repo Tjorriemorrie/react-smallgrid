@@ -110,78 +110,22 @@ export default class SmallGrid extends React.Component{
         return end;
     }
 
-//    onKeyDown: function (e) {
-//        console.info('[SmallGrid] onKeyDown');
-//        if (e.keyCode == 27) {
-//            console.info('[SmallGrid] edit cancelled');
-//            this.editExit();
-//        }
-//    },
-
-    //editExit() {
-    //    console.info('Exited editing');
-    //    if (this.state.edit_idx != null) {
-    //        this.setState({
-    //            edit_idx: null,
-    //            edit_prop: null
-    //        });
-    //    }
-    //}
-
-//    editCell: function (idx, prop) {
-//        console.info('[SmallGrid] editCell', idx, prop);
-//        this.setState({
-//            edit_idx: idx,
-//            edit_prop: prop
-//        });
-//    },
-//
-//    editValue: function (e) {
-////        console.info('[SmallGrid] editValue', e);
-//        e.preventDefault();
-//
-//        this.editExit();
-//        console.info('[SmallGrid] editValue: exiting editing');
-//
-//        var form = $(React.findDOMNode(this.refs.formEdit));
-//        console.info('[SmallGrid] editValue: form', form);
-//        var val = form.find('[name=val]').val();
-//        console.info('[SmallGrid] editValue: val', val);
-//        var ori = form.find('[name=ori]').val();
-//        console.info('[SmallGrid] editValue: ori', ori);
-//
-//        if (val != ori) {
-//            var row_i = parseInt(form.find('[name=row_i]').val());
-//            console.info('[SmallGrid] editValue row_i', row_i);
-//            var i = this.getStart() + row_i;
-//            console.info('[SmallGrid] editValue i', i);
-//            var row = this.props.rows[i];
-//            console.info('[SmallGrid] editValue row', row);
-//            var prop = form.find('[name=prop]').val();
-//            console.info('[SmallGrid] editValue col_key', prop);
-//
-//            _.set(this.props.rows[i], prop, val);
-//            console.info('[SmallGrid] editValue row val updated');
-//
-//            var col = _.filter(this.getCols(), {'key': prop})[0];
-//            console.info('[SmallGrid] editValue: col', col);
-//            console.info('[SmallGrid] editValue: col edit', col.edit);
-//            col.edit(row, prop, val);
-//            console.info('[SmallGrid] editValue: sending vals to function');
-//        }
-//    },
-
     getCell(row_i, row, col_i, col) {
         //console.info('[SmallGrid] getCell', row_i, row, col_i, col);
         let val = col.format(_.get(row, col.key, col.default));
 
         if (this.state.edit_idx == row_i && this.state.edit_prop == col.key) {
             return <td key={col_i}>
-                <form ref="formEdit" onSubmit={this.editValue}>
-                    <input type="hidden" name="row_i" value={row_i} />
-                    <input type="hidden" name="prop" value={col.key} />
-                    <input type="hidden" name="ori" value={val} />
-                    <input type="text" name="val" onKeyDown={this.onKeyDown} defaultValue={val} autoFocus />
+                <form onSubmit={this.editValue.bind(this)}>
+                    <input
+                        type="text"
+                        name={col.key}
+                        defaultValue={val}
+                        ref={(c) => this._input = c}
+                        onKeyDown={this.onKeyDown.bind(this)}
+                        data-row={row_i}
+                        autoFocus
+                    />
                 </form>
             </td>;
 
@@ -208,12 +152,12 @@ export default class SmallGrid extends React.Component{
 
     setPage(page) {
         //console.info('[SmallGrid] setPage', page);
-        //this.editExit();
+        this.editExit();
         this.setState({page: page});
     }
 
     sortBy(col) {
-        //this.editExit();
+        this.editExit();
         let s = {};
 
         if (this.state.sort_by == col) {
@@ -323,4 +267,67 @@ export default class SmallGrid extends React.Component{
             </section>
         }
     }
+
+    onKeyDown(e) {
+        console.info('[SmallGrid] onKeyDown', e.keyCode);
+        if (e.keyCode == 27) {
+            console.info('[SmallGrid] edit cancelled');
+            this.editExit();
+        }
+    }
+
+    editExit() {
+        console.info('Exited editing');
+        if (this.state.edit_idx != null) {
+            this.setState({
+                edit_idx: null,
+                edit_prop: null
+            });
+        }
+    }
+
+    editCell(idx, prop) {
+        console.info('[SmallGrid] editCell', idx, prop);
+        this.setState({
+            edit_idx: idx,
+            edit_prop: prop
+        });
+    }
+
+    editValue(e) {
+        console.info('[SmallGrid] editValue', e);
+        e.preventDefault();
+
+        this.editExit();
+        console.info('[SmallGrid] editValue: exiting editing');
+
+        let row_i = parseInt(this._input.dataset.row);
+        let col_name = this._input.name;
+        let val = this._input.value;
+        let defval = this._input.defaultValue;
+
+        console.info('[SmallGrid] editValue: row_i', row_i);
+        console.info('[SmallGrid] editValue: col_name', col_name);
+        console.info('[SmallGrid] editValue: val', val);
+        console.info('[SmallGrid] editValue: deval', defval);
+
+        if (val != defval) {
+
+            let i = this.getStart() + row_i;
+            console.info('[SmallGrid] editValue: i', i);
+
+            let row = this.props.rows[i];
+            console.info('[SmallGrid] editValue: row', row);
+
+            _.set(this.props.rows[i], col_name, val);
+            console.info('[SmallGrid] editValue: row val updated');
+
+            let col = _.filter(this.getCols(), {'key': col_name})[0];
+            console.info('[SmallGrid] editValue: col', col);
+
+            console.info('[SmallGrid] editValue: col edit', col.edit);
+            col.edit(row, col_name, val);
+        }
+    }
+
 };

@@ -31477,9 +31477,9 @@ var SmallGrid = (function (_React$Component) {
 
         console.info('[SmallGrid] constructor');
 
-        var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(SmallGrid).call(this, props));
+        var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(SmallGrid).call(this, props));
 
-        _this2.state = {
+        _this3.state = {
             edit_idx: null,
             edit_prop: null,
             limit: 20,
@@ -31488,7 +31488,7 @@ var SmallGrid = (function (_React$Component) {
             sort_by: null,
             sort_dir: 'desc'
         };
-        return _this2;
+        return _this3;
     }
 
     _createClass(SmallGrid, [{
@@ -31591,71 +31591,11 @@ var SmallGrid = (function (_React$Component) {
             //console.info('[SmallGrid] getEnd', end, '(excl)');
             return end;
         }
-
-        //    onKeyDown: function (e) {
-        //        console.info('[SmallGrid] onKeyDown');
-        //        if (e.keyCode == 27) {
-        //            console.info('[SmallGrid] edit cancelled');
-        //            this.editExit();
-        //        }
-        //    },
-
-        //editExit() {
-        //    console.info('Exited editing');
-        //    if (this.state.edit_idx != null) {
-        //        this.setState({
-        //            edit_idx: null,
-        //            edit_prop: null
-        //        });
-        //    }
-        //}
-
-        //    editCell: function (idx, prop) {
-        //        console.info('[SmallGrid] editCell', idx, prop);
-        //        this.setState({
-        //            edit_idx: idx,
-        //            edit_prop: prop
-        //        });
-        //    },
-        //
-        //    editValue: function (e) {
-        ////        console.info('[SmallGrid] editValue', e);
-        //        e.preventDefault();
-        //
-        //        this.editExit();
-        //        console.info('[SmallGrid] editValue: exiting editing');
-        //
-        //        var form = $(React.findDOMNode(this.refs.formEdit));
-        //        console.info('[SmallGrid] editValue: form', form);
-        //        var val = form.find('[name=val]').val();
-        //        console.info('[SmallGrid] editValue: val', val);
-        //        var ori = form.find('[name=ori]').val();
-        //        console.info('[SmallGrid] editValue: ori', ori);
-        //
-        //        if (val != ori) {
-        //            var row_i = parseInt(form.find('[name=row_i]').val());
-        //            console.info('[SmallGrid] editValue row_i', row_i);
-        //            var i = this.getStart() + row_i;
-        //            console.info('[SmallGrid] editValue i', i);
-        //            var row = this.props.rows[i];
-        //            console.info('[SmallGrid] editValue row', row);
-        //            var prop = form.find('[name=prop]').val();
-        //            console.info('[SmallGrid] editValue col_key', prop);
-        //
-        //            _.set(this.props.rows[i], prop, val);
-        //            console.info('[SmallGrid] editValue row val updated');
-        //
-        //            var col = _.filter(this.getCols(), {'key': prop})[0];
-        //            console.info('[SmallGrid] editValue: col', col);
-        //            console.info('[SmallGrid] editValue: col edit', col.edit);
-        //            col.edit(row, prop, val);
-        //            console.info('[SmallGrid] editValue: sending vals to function');
-        //        }
-        //    },
-
     }, {
         key: 'getCell',
         value: function getCell(row_i, row, col_i, col) {
+            var _this = this;
+
             //console.info('[SmallGrid] getCell', row_i, row, col_i, col);
             var val = col.format(_lodash2.default.get(row, col.key, col.default));
 
@@ -31665,11 +31605,18 @@ var SmallGrid = (function (_React$Component) {
                     { key: col_i },
                     _react2.default.createElement(
                         'form',
-                        { ref: 'formEdit', onSubmit: this.editValue },
-                        _react2.default.createElement('input', { type: 'hidden', name: 'row_i', value: row_i }),
-                        _react2.default.createElement('input', { type: 'hidden', name: 'prop', value: col.key }),
-                        _react2.default.createElement('input', { type: 'hidden', name: 'ori', value: val }),
-                        _react2.default.createElement('input', { type: 'text', name: 'val', onKeyDown: this.onKeyDown, defaultValue: val, autoFocus: true })
+                        { onSubmit: this.editValue.bind(this) },
+                        _react2.default.createElement('input', {
+                            type: 'text',
+                            name: col.key,
+                            defaultValue: val,
+                            ref: function ref(c) {
+                                return _this._input = c;
+                            },
+                            onKeyDown: this.onKeyDown.bind(this),
+                            'data-row': row_i,
+                            autoFocus: true
+                        })
                     )
                 );
             } else {
@@ -31705,13 +31652,13 @@ var SmallGrid = (function (_React$Component) {
         key: 'setPage',
         value: function setPage(page) {
             //console.info('[SmallGrid] setPage', page);
-            //this.editExit();
+            this.editExit();
             this.setState({ page: page });
         }
     }, {
         key: 'sortBy',
         value: function sortBy(col) {
-            //this.editExit();
+            this.editExit();
             var s = {};
 
             if (this.state.sort_by == col) {
@@ -31753,7 +31700,7 @@ var SmallGrid = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this = this;
+            var _this2 = this;
 
             console.info('[SmallGrid] render');
             if (!this.props.hasOwnProperty('rows') || this.props.rows.length < 1) {
@@ -31765,9 +31712,9 @@ var SmallGrid = (function (_React$Component) {
             } else {
                 var _ret = (function () {
 
-                    var pages = _this.getPages();
-                    var cols = _this.getCols();
-                    var rows = _this.getRows();
+                    var pages = _this2.getPages();
+                    var cols = _this2.getCols();
+                    var rows = _this2.getRows();
 
                     return {
                         v: _react2.default.createElement(
@@ -31790,7 +31737,7 @@ var SmallGrid = (function (_React$Component) {
                                                 { key: col_i, onClick: this.sortBy.bind(this, col.key), className: this.state.sort_by != col.key ? '' : 'sort-' + this.state.sort_dir },
                                                 col.name
                                             );
-                                        }, _this)
+                                        }, _this2)
                                     )
                                 ),
                                 _react2.default.createElement(
@@ -31804,7 +31751,7 @@ var SmallGrid = (function (_React$Component) {
                                                 return this.getCell(row_i, row, col_i, col);
                                             }, this)
                                         );
-                                    }, _this)
+                                    }, _this2)
                                 ),
                                 _react2.default.createElement(
                                     'tfoot',
@@ -31820,10 +31767,10 @@ var SmallGrid = (function (_React$Component) {
                                                 { className: 'pagination' },
                                                 _react2.default.createElement(
                                                     'li',
-                                                    { className: _this.state.page < 2 ? 'disabled' : '' },
+                                                    { className: _this2.state.page < 2 ? 'disabled' : '' },
                                                     _react2.default.createElement(
                                                         'a',
-                                                        { onClick: _this.setPage.bind(_this, _this.state.page - 1), href: '#library_table', 'aria-label': 'Previous' },
+                                                        { onClick: _this2.setPage.bind(_this2, _this2.state.page - 1), href: '#library_table', 'aria-label': 'Previous' },
                                                         _react2.default.createElement(
                                                             'span',
                                                             { 'aria-hidden': 'true' },
@@ -31841,13 +31788,13 @@ var SmallGrid = (function (_React$Component) {
                                                             v
                                                         )
                                                     );
-                                                }).bind(_this)),
+                                                }).bind(_this2)),
                                                 _react2.default.createElement(
                                                     'li',
-                                                    { className: _this.state.page >= _this.state.total_pages ? 'disabled' : '' },
+                                                    { className: _this2.state.page >= _this2.state.total_pages ? 'disabled' : '' },
                                                     _react2.default.createElement(
                                                         'a',
-                                                        { onClick: _this.setPage.bind(_this, _this.state.page + 1), href: '#library_table', 'aria-label': 'Next' },
+                                                        { onClick: _this2.setPage.bind(_this2, _this2.state.page + 1), href: '#library_table', 'aria-label': 'Next' },
                                                         _react2.default.createElement(
                                                             'span',
                                                             { 'aria-hidden': 'true' },
@@ -31863,7 +31810,7 @@ var SmallGrid = (function (_React$Component) {
                                             _react2.default.createElement(
                                                 'span',
                                                 { className: 'pull-right' },
-                                                _this.props.rows.length,
+                                                _this2.props.rows.length,
                                                 ' rows'
                                             )
                                         )
@@ -31875,6 +31822,72 @@ var SmallGrid = (function (_React$Component) {
                 })();
 
                 if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+            }
+        }
+    }, {
+        key: 'onKeyDown',
+        value: function onKeyDown(e) {
+            console.info('[SmallGrid] onKeyDown', e.keyCode);
+            if (e.keyCode == 27) {
+                console.info('[SmallGrid] edit cancelled');
+                this.editExit();
+            }
+        }
+    }, {
+        key: 'editExit',
+        value: function editExit() {
+            console.info('Exited editing');
+            if (this.state.edit_idx != null) {
+                this.setState({
+                    edit_idx: null,
+                    edit_prop: null
+                });
+            }
+        }
+    }, {
+        key: 'editCell',
+        value: function editCell(idx, prop) {
+            console.info('[SmallGrid] editCell', idx, prop);
+            this.setState({
+                edit_idx: idx,
+                edit_prop: prop
+            });
+        }
+    }, {
+        key: 'editValue',
+        value: function editValue(e) {
+            console.info('[SmallGrid] editValue', e);
+            e.preventDefault();
+
+            this.editExit();
+            console.info('[SmallGrid] editValue: exiting editing');
+
+            var row_i = parseInt(this._input.dataset.row);
+            var col_name = this._input.name;
+            var val = this._input.value;
+            var defval = this._input.defaultValue;
+
+            console.info('[SmallGrid] editValue: row_i', row_i);
+            console.info('[SmallGrid] editValue: col_name', col_name);
+            console.info('[SmallGrid] editValue: val', val);
+            console.info('[SmallGrid] editValue: deval', defval);
+
+            if (val != defval) {
+
+                var i = this.getStart() + row_i;
+                console.info('[SmallGrid] editValue: i', i);
+
+                var row = this.props.rows[i];
+                console.info('[SmallGrid] editValue: row', row);
+
+                _lodash2.default.set(this.props.rows[i], col_name, val);
+                console.info('[SmallGrid] editValue: row val updated');
+
+                var col = _lodash2.default.filter(this.getCols(), { 'key': col_name })[0];
+                console.info('[SmallGrid] editValue: col', col);
+
+                console.info('[SmallGrid] editValue: col edit', col.edit);
+                col.edit(row, col_name, val);
             }
         }
     }]);

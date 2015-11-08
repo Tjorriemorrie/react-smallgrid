@@ -45,6 +45,9 @@ module.exports = function (grunt) {
 				files: {
 					'./examples/1_basic_minimal.js': './src/examples/1_BasicMinimal.jsx',
 					'./examples/2_basic_headings.js': './src/examples/2_BasicHeadings.jsx',
+					'./examples/3_basic_nested_objects.js': './src/examples/3_BasicNestedObjects.jsx',
+					'./examples/4_advanced_formatting.js': './src/examples/4_AdvancedFormatting.jsx',
+					'./examples/5_advanced_editing.js': './src/examples/5_AdvancedEditing.jsx',
 				}
 			},
 		},
