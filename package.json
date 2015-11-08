@@ -1,0 +1,39 @@
+{
+  "name": "react-smallgrid",
+  "version": "2.0.3",
+  "description": "A datatable for react (bootstrap themed)",
+  "main": "dist/js/smallgrid.min.js",
+  "directories": {
+    "src": "src",
+    "dist": "dist",
+    "example": "examples"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babelify": "^7.2.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.1",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-uglify": "^0.10.0",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tjorriemorrie/react-smallgrid.git"
+  },
+  "author": "Tjorriemorrie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tjorriemorrie/react-smallgrid/issues"
+  },
+  "homepage": "https://github.com/Tjorriemorrie/react-smallgrid#readme"
+}

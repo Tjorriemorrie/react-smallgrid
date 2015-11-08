@@ -7,21 +7,15 @@ Features: pagination, ordering, formatting, editing
 ## Installation
 ---
 
-Install via bower:
+Install via npm:
    
-    bower install -S react-smallgrid
+    npm install -S react-smallgrid
     
     
     
 #### Dependencies
 
 This library requires [lodash](https://www.lodash.com):
-
-    bower install -S lodash
-    
-This library requires [jquery](https://www.jquery.com):
-
-    bower install -S jquery
     
 This library is styled with [bootstrap](https://getbootstrap.com):
 
@@ -34,11 +28,9 @@ Full example (incl lodash and bootstrap):
 
     <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
-    <link href="react-smallgrid/dist/smallgrid.min.css" rel="stylesheet">
     
     <script src="jquery/dist/jquery.min.js" type="text/javascript"></script>
     <script src="lodash/lodash.js" type="text/javascript"></script>
-    <script src="react-smallgrid/dist/smallgrid.min.js" type="text/javascript"></script>
 
 
 ## Basic Usage
@@ -47,14 +39,16 @@ Full example (incl lodash and bootstrap):
 ### Foreword
 
 The table can only be ordered by one column; I'll probably add it to support multiple
-columns in the futre.
+columns in the future.
 
 The table is hardcoded with pagination. Currently the row limit/page size is hardcoded at 20. I'll
 probably change it in the future, and you can also easily change it and run the gulp.
 
 Also I've used bootstrap CSS, and I'll probably make it customisable in the future.
 
-I'll probably also remove the jquery dependency, in the future, as it is used on ~3 lines.
+Just require the library:
+
+> import SmallGrid from 'react-smallgrid'
 
 ### Minimal
 
@@ -77,8 +71,8 @@ The `cols` attribute has the following required property for the objects:
             ]}
         />
     
-[refer example](examples/1_usage_basic_minimal.html)
-![alt tag](examples/1_usage_basic_minimal.png)
+[refer example](examples/1_basic_minimal.html)
+![alt tag](examples/1_basic_minimal.png)
 
 
  
@@ -95,8 +89,8 @@ Add the property `name` to the cols objects for the heading of the columns:
                 ]}
             />
 
-[refer example](examples/2_usage_basic_headings.html)
-![alt tag](examples/2_usage_basic_headings.png)
+[refer example](examples/2_basic_headings.html)
+![alt tag](examples/2_basic_headings.png)
 
 
 ### Nested objects
@@ -114,8 +108,8 @@ Add the nested object to the `key` of the columns:
                 ]}
             />
 
-[refer example](examples/3_usage_basic_nested_objects.html)
-![alt tag](examples/3_usage_basic_nested_objects.png)
+[refer example](examples/3_basic_nested_objects.html)
+![alt tag](examples/3_basic_nested_objects.png)
 
 
 ## Advanced Usage
@@ -143,8 +137,8 @@ You can pass `format` function on the `cols` object for the formatting you wish 
             />
 
 
-[refer example](examples/4_usage_advanced_formatting.html)
-![alt tag](examples/4_usage_advanced_formatting.png)
+[refer example](examples/4_advanced_formatting.html)
+![alt tag](examples/4_advanced_formatting.png)
 
 
 ### Editing
@@ -178,9 +172,9 @@ will also be stopped. The function provided to edit will then receive three para
             />
 
 
-[refer example](examples/5_usage_advanced_editing.html)
-![alt tag](examples/5_usage_advanced_editing.png)
+[refer example](examples/5_advanced_editing.html)
+![alt tag](examples/5_advanced_editing.png)
 
-![alt tag](examples/5_usage_advanced_editing_values_1.png)
+![alt tag](examples/5_advanced_editing_values_1.png)
 
-![alt tag](examples/5_usage_advanced_editing_values_2.png)
+![alt tag](examples/5_advanced_editing_values_2.png)
