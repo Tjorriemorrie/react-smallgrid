@@ -15709,6 +15709,7 @@ var HTMLDOMPropertyConfig = {
     multiple: MUST_USE_PROPERTY | HAS_BOOLEAN_VALUE,
     muted: MUST_USE_PROPERTY | HAS_BOOLEAN_VALUE,
     name: null,
+    nonce: MUST_USE_ATTRIBUTE,
     noValidate: HAS_BOOLEAN_VALUE,
     open: HAS_BOOLEAN_VALUE,
     optimum: null,
@@ -15720,6 +15721,7 @@ var HTMLDOMPropertyConfig = {
     readOnly: MUST_USE_PROPERTY | HAS_BOOLEAN_VALUE,
     rel: null,
     required: HAS_BOOLEAN_VALUE,
+    reversed: HAS_BOOLEAN_VALUE,
     role: MUST_USE_ATTRIBUTE,
     rows: MUST_USE_ATTRIBUTE | HAS_POSITIVE_NUMERIC_VALUE,
     rowSpan: null,
@@ -15770,8 +15772,8 @@ var HTMLDOMPropertyConfig = {
      */
     // autoCapitalize and autoCorrect are supported in Mobile Safari for
     // keyboard hints.
-    autoCapitalize: null,
-    autoCorrect: null,
+    autoCapitalize: MUST_USE_ATTRIBUTE,
+    autoCorrect: MUST_USE_ATTRIBUTE,
     // autoSave allows WebKit/Blink to persist values of input fields on page reloads
     autoSave: null,
     // color is for Safari mask-icon link
@@ -15802,9 +15804,7 @@ var HTMLDOMPropertyConfig = {
     httpEquiv: 'http-equiv'
   },
   DOMPropertyNames: {
-    autoCapitalize: 'autocapitalize',
     autoComplete: 'autocomplete',
-    autoCorrect: 'autocorrect',
     autoFocus: 'autofocus',
     autoPlay: 'autoplay',
     autoSave: 'autosave',
@@ -16165,6 +16165,7 @@ assign(React, {
 });
 
 React.__SECRET_DOM_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactDOM;
+React.__SECRET_DOM_SERVER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactDOMServer;
 
 module.exports = React;
 },{"./Object.assign":25,"./ReactDOM":38,"./ReactDOMServer":48,"./ReactIsomorphic":66,"./deprecated":109}],28:[function(require,module,exports){
@@ -20246,7 +20247,7 @@ function updateOptionsIfPendingUpdateAndMounted() {
     var value = LinkedValueUtils.getValue(props);
 
     if (value != null) {
-      updateOptions(this, props, value);
+      updateOptions(this, Boolean(props.multiple), value);
     }
   }
 }
@@ -21325,7 +21326,9 @@ var DOM_OPERATION_TYPES = {
   'setValueForProperty': 'update attribute',
   'setValueForAttribute': 'update attribute',
   'deleteValueForProperty': 'remove attribute',
-  'dangerouslyReplaceNodeWithMarkupByID': 'replace'
+  'setValueForStyles': 'update styles',
+  'replaceNodeWithMarkup': 'replace',
+  'updateTextContent': 'set textContent'
 };
 
 function getTotalTime(measurements) {
@@ -26373,7 +26376,7 @@ module.exports = ReactUpdates;
 
 'use strict';
 
-module.exports = '0.14.2';
+module.exports = '0.14.6';
 },{}],88:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -30633,11 +30636,14 @@ module.exports = focusNode;
  * @typechecks
  */
 
+/* eslint-disable fb-www/typeof-undefined */
+
 /**
  * Same as document.activeElement but wraps in a try-catch block. In IE it is
  * not safe to call document.activeElement if there is nothing focused.
  *
- * The activeElement will be null only if the document or document body is not yet defined.
+ * The activeElement will be null only if the document or document body is not
+ * yet defined.
  */
 'use strict';
 
@@ -30645,7 +30651,6 @@ function getActiveElement() /*?DOMElement*/{
   if (typeof document === 'undefined') {
     return null;
   }
-
   try {
     return document.activeElement || document.body;
   } catch (e) {
@@ -30891,7 +30896,7 @@ module.exports = hyphenateStyleName;
  * will remain to ensure logic does not differ in production.
  */
 
-var invariant = function (condition, format, a, b, c, d, e, f) {
+function invariant(condition, format, a, b, c, d, e, f) {
   if (process.env.NODE_ENV !== 'production') {
     if (format === undefined) {
       throw new Error('invariant requires an error message argument');
@@ -30905,15 +30910,16 @@ var invariant = function (condition, format, a, b, c, d, e, f) {
     } else {
       var args = [a, b, c, d, e, f];
       var argIndex = 0;
-      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+      error = new Error(format.replace(/%s/g, function () {
         return args[argIndex++];
       }));
+      error.name = 'Invariant Violation';
     }
 
     error.framesToPop = 1; // we don't care about invariant's own frame
     throw error;
   }
-};
+}
 
 module.exports = invariant;
 }).call(this,require('_process'))
@@ -31178,18 +31184,23 @@ module.exports = performance || {};
 'use strict';
 
 var performance = require('./performance');
-var curPerformance = performance;
+
+var performanceNow;
 
 /**
  * Detect if we can use `window.performance.now()` and gracefully fallback to
  * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
  * because of Facebook's testing infrastructure.
  */
-if (!curPerformance || !curPerformance.now) {
-  curPerformance = Date;
+if (performance.now) {
+  performanceNow = function () {
+    return performance.now();
+  };
+} else {
+  performanceNow = function () {
+    return Date.now();
+  };
 }
-
-var performanceNow = curPerformance.now.bind(curPerformance);
 
 module.exports = performanceNow;
 },{"./performance":154}],156:[function(require,module,exports){
@@ -31451,23 +31462,19 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
 var SmallGrid = (function (_React$Component) {
     _inherits(SmallGrid, _React$Component);
@@ -31477,9 +31484,9 @@ var SmallGrid = (function (_React$Component) {
 
         console.info('[SmallGrid] constructor');
 
-        var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(SmallGrid).call(this, props));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SmallGrid).call(this, props));
 
-        _this3.state = {
+        _this.state = {
             edit_idx: null,
             edit_prop: null,
             limit: 20,
@@ -31488,7 +31495,7 @@ var SmallGrid = (function (_React$Component) {
             sort_by: null,
             sort_dir: 'desc'
         };
-        return _this3;
+        return _this;
     }
 
     _createClass(SmallGrid, [{
@@ -31594,7 +31601,7 @@ var SmallGrid = (function (_React$Component) {
     }, {
         key: 'getCell',
         value: function getCell(row_i, row, col_i, col) {
-            var _this = this;
+            var _this2 = this;
 
             //console.info('[SmallGrid] getCell', row_i, row, col_i, col);
             var val = col.format(_lodash2.default.get(row, col.key, col.default));
@@ -31611,7 +31618,7 @@ var SmallGrid = (function (_React$Component) {
                             name: col.key,
                             defaultValue: val,
                             ref: function ref(c) {
-                                return _this._input = c;
+                                return _this2._input = c;
                             },
                             onKeyDown: this.onKeyDown.bind(this),
                             'data-row': row_i,
@@ -31700,7 +31707,7 @@ var SmallGrid = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             console.info('[SmallGrid] render');
             if (!this.props.hasOwnProperty('rows') || this.props.rows.length < 1) {
@@ -31712,9 +31719,9 @@ var SmallGrid = (function (_React$Component) {
             } else {
                 var _ret = (function () {
 
-                    var pages = _this2.getPages();
-                    var cols = _this2.getCols();
-                    var rows = _this2.getRows();
+                    var pages = _this3.getPages();
+                    var cols = _this3.getCols();
+                    var rows = _this3.getRows();
 
                     return {
                         v: _react2.default.createElement(
@@ -31737,7 +31744,7 @@ var SmallGrid = (function (_React$Component) {
                                                 { key: col_i, onClick: this.sortBy.bind(this, col.key), className: this.state.sort_by != col.key ? '' : 'sort-' + this.state.sort_dir },
                                                 col.name
                                             );
-                                        }, _this2)
+                                        }, _this3)
                                     )
                                 ),
                                 _react2.default.createElement(
@@ -31751,7 +31758,7 @@ var SmallGrid = (function (_React$Component) {
                                                 return this.getCell(row_i, row, col_i, col);
                                             }, this)
                                         );
-                                    }, _this2)
+                                    }, _this3)
                                 ),
                                 _react2.default.createElement(
                                     'tfoot',
@@ -31767,10 +31774,10 @@ var SmallGrid = (function (_React$Component) {
                                                 { className: 'pagination' },
                                                 _react2.default.createElement(
                                                     'li',
-                                                    { className: _this2.state.page < 2 ? 'disabled' : '' },
+                                                    { className: _this3.state.page < 2 ? 'disabled' : '' },
                                                     _react2.default.createElement(
                                                         'a',
-                                                        { onClick: _this2.setPage.bind(_this2, _this2.state.page - 1), href: '#library_table', 'aria-label': 'Previous' },
+                                                        { onClick: _this3.setPage.bind(_this3, _this3.state.page - 1), href: '#library_table', 'aria-label': 'Previous' },
                                                         _react2.default.createElement(
                                                             'span',
                                                             { 'aria-hidden': 'true' },
@@ -31788,13 +31795,13 @@ var SmallGrid = (function (_React$Component) {
                                                             v
                                                         )
                                                     );
-                                                }).bind(_this2)),
+                                                }).bind(_this3)),
                                                 _react2.default.createElement(
                                                     'li',
-                                                    { className: _this2.state.page >= _this2.state.total_pages ? 'disabled' : '' },
+                                                    { className: _this3.state.page >= _this3.state.total_pages ? 'disabled' : '' },
                                                     _react2.default.createElement(
                                                         'a',
-                                                        { onClick: _this2.setPage.bind(_this2, _this2.state.page + 1), href: '#library_table', 'aria-label': 'Next' },
+                                                        { onClick: _this3.setPage.bind(_this3, _this3.state.page + 1), href: '#library_table', 'aria-label': 'Next' },
                                                         _react2.default.createElement(
                                                             'span',
                                                             { 'aria-hidden': 'true' },
@@ -31810,7 +31817,7 @@ var SmallGrid = (function (_React$Component) {
                                             _react2.default.createElement(
                                                 'span',
                                                 { className: 'pull-right' },
-                                                _this2.props.rows.length,
+                                                _this3.props.rows.length,
                                                 ' rows'
                                             )
                                         )
@@ -31898,4 +31905,4 @@ var SmallGrid = (function (_React$Component) {
 exports.default = SmallGrid;
 ;
 
-},{"lodash":2,"react":159,"react-dom":3}]},{},[160]);
+},{"lodash":2,"react":159}]},{},[160]);

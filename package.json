@@ -1,17 +1,17 @@
 {
   "name": "react-smallgrid",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A datatable for react (bootstrap themed)",
   "main": "src/smallgrid.jsx",
   "directories": {
     "src": "src",
     "dist": "dist",
-    "example": "examples"
+    "examples": "examples"
   },
   "dependencies": {
-    "lodash": "^3.10.1",
-    "react": "^0.14.2",
-    "react-dom": "^0.14.2"
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "lodash": "^3.10.0"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.0.15",

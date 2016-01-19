@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import _ from 'lodash';
+
 
 export default class SmallGrid extends React.Component{
 
