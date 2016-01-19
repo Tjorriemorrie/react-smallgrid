@@ -15,22 +15,17 @@ Install via npm:
     
 #### Dependencies
 
-This library requires [lodash](https://www.lodash.com):
-    
-This library is styled with [bootstrap](https://getbootstrap.com):
+No dependencies. Optionally [bootstrap](https://getbootstrap.com) class names are used:
 
     bower install -S bootstrap
     
 
-### Set up
+### Usage
 
-Full example (incl lodash and bootstrap):
-
-    <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link href="bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    import SmallGrid from 'react-smallgrid';
     
-    <script src="jquery/dist/jquery.min.js" type="text/javascript"></script>
-    <script src="lodash/lodash.js" type="text/javascript"></script>
+_You can include the bootstrap css stylesheet if you want the styling 
+applied, otherwise create your own css styles with the same class names._
 
 
 ## Basic Usage
@@ -44,11 +39,6 @@ columns in the future.
 The table is hardcoded with pagination. Currently the row limit/page size is hardcoded at 20. I'll
 probably change it in the future, and you can also easily change it and run the gulp.
 
-Also I've used bootstrap CSS, and I'll probably make it customisable in the future.
-
-Just require the library:
-
-> import SmallGrid from 'react-smallgrid'
 
 ### Minimal
 
