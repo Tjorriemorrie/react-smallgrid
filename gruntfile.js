@@ -52,18 +52,18 @@ module.exports = function (grunt) {
 			},
 		},
 
-        uglify: {
-            options: {
-                mangle: true,  // Use if you want the names of your functions and variables unchanged
-            },
-            jsx: {
-                files: {
-                    './dist/js/smallgrid.min.js': [
-	                    './dist/js/smallgrid.js',
-                    ],
-                }
-            }
-        },
+        //uglify: {
+        //    options: {
+        //        mangle: true,  // Use if you want the names of your functions and variables unchanged
+        //    },
+        //    jsx: {
+        //        files: {
+        //            './dist/js/smallgrid.min.js': [
+	     //               './dist/js/smallgrid.js',
+        //            ],
+        //        }
+        //    }
+        //},
 
         watch: {
             options: {
@@ -106,9 +106,9 @@ module.exports = function (grunt) {
     // Load the plugins
     grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-browserify');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    //grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-    grunt.registerTask('default', ['less', 'browserify', 'uglify', 'watch']);
+    grunt.registerTask('default', ['less', 'browserify', 'watch']);
 };
