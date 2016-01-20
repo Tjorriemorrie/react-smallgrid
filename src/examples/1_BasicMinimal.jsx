@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SmallGrid from './../smallgrid.jsx';
+import SmallGrid from './../../dist/js/smallgrid.js';
+
 
 class MyComponent extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {rows: data};
-
     }
 
     render() {

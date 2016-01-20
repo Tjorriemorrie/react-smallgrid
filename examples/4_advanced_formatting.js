@@ -31467,6 +31467,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -31910,4 +31914,4 @@ var SmallGrid = (function (_React$Component) {
 exports.default = SmallGrid;
 ;
 
-},{"lodash":2,"react":159}]},{},[160]);
+},{"lodash":2,"react":159,"react-dom":3}]},{},[160]);
