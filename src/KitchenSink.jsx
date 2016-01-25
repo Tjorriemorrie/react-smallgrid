@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import data from './data.js';
-import SmallGrid from './../../dist/js/smallgrid.js';
+import SmallGrid from './SmallGrid.jsx';
 
 
-class MyComponent extends React.Component {
+class KitchenSink extends React.Component {
 
     constructor(props) {
         super(props);
@@ -29,4 +29,4 @@ class MyComponent extends React.Component {
     }
 }
 
-ReactDOM.render(<MyComponent />, document.body);
+ReactDOM.render(<KitchenSink />, document.getElementById('kitchen_sink'));

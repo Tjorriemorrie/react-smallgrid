@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 
-export default class SmallGrid extends React.Component{
+export default class SmallGrid extends React.Component {
 
     constructor(props) {
         console.info('[SmallGrid] constructor');

@@ -1,12 +1,10 @@
 {
   "name": "react-smallgrid",
-  "version": "2.1.3",
+  "version": "3.0.0",
   "description": "A datatable for react (bootstrap themed)",
-  "main": "dist/js/smallgrid.js",
+  "main": "build/smallgrid.js",
   "directories": {
-    "src": "src",
-    "dist": "dist",
-    "examples": "examples"
+    "build": "build"
   },
   "dependencies": {
     "lodash": "^3.10.0",
@@ -14,17 +12,23 @@
     "react-dom": "~0.14.0"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.0.15",
-    "babel-preset-react": "^6.0.15",
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^4.0.1",
     "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-uglify": "^0.10.0",
-    "grunt-contrib-watch": "^0.6.1"
+    "grunt-contrib-watch": "^0.6.1",
+    "webpack": "^1.12.11",
+    "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -p",
+    "dev": "webpack-dev-server --port 8989 --devtool eval --progress --colors --hot --inline --content-base build"
   },
   "repository": {
     "type": "git",
