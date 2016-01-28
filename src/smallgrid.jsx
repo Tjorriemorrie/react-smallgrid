@@ -309,7 +309,7 @@ export default class SmallGrid extends React.Component {
         console.info('[SmallGrid] editValue: row_i', row_i);
         console.info('[SmallGrid] editValue: col_name', col_name);
         console.info('[SmallGrid] editValue: val', val);
-        console.info('[SmallGrid] editValue: deval', defval);
+        console.info('[SmallGrid] editValue: defval', defval);
 
         if (val != defval) {
 

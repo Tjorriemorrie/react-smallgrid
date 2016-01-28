@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import data from './data.js';
-import SmallGrid from './SmallGrid.jsx';
+import SmallGrid from './../build/smallgrid.js';
 
 
 class KitchenSink extends React.Component {
@@ -12,10 +12,13 @@ class KitchenSink extends React.Component {
     }
 
     render() {
+        console.info('[KitchenSink] render');
         return <div className="container">
             <div className="row">
                 <h3>Basic usage</h3>
                 <h5>Minimal</h5>
+
+                {console.info('delete this tag and the rendering works')}
                 <SmallGrid
                     rows={this.state.rows}
                     cols={[
