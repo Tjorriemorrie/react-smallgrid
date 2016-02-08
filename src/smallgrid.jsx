@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 
-export default class SmallGrid extends React.Component {
+class SmallGrid extends React.Component {
 
     constructor(props) {
         console.info('[SmallGrid] constructor');
@@ -141,7 +141,7 @@ export default class SmallGrid extends React.Component {
     getPages() {
         //console.info('[SmallGrid] getPages');
         let pages = [];
-        for (let i=this.state.page-4; i<=this.state.page+4; i++) {
+        for (let i = this.state.page - 4; i <= this.state.page + 4; i++) {
             if (i > 0 && i <= this.state.total_pages) {
                 pages.push(i);
             }
@@ -185,7 +185,8 @@ export default class SmallGrid extends React.Component {
         if (this.state.sort_by) {
             console.info('[SmallGrid] sortRows: sorting');
             this.props.rows.sort(function (a, b) {
-                let x = a[this.state.sort_by]; let y = b[this.state.sort_by];
+                let x = a[this.state.sort_by];
+                let y = b[this.state.sort_by];
                 if (this.state.sort_dir == 'desc') {
                     return ((x < y) ? 1 : ((x > y) ? -1 : 0));
                 } else {
@@ -213,54 +214,57 @@ export default class SmallGrid extends React.Component {
                 <table className="table table-condensed table-sort table-hl">
 
                     <thead>
-                        <tr>
-                            {_.map(cols, function (col, col_i, cols) {
-                                return (
-                                    <th key={col_i} onClick={this.sortBy.bind(this, col.key)} className={(this.state.sort_by != col.key) ? '' : 'sort-' + this.state.sort_dir}>
-                                        {col.name}
-                                    </th>
-                                );
-                            }, this)}
-                        </tr>
+                    <tr>
+                        {_.map(cols, function (col, col_i, cols) {
+                            return (
+                                <th key={col_i} onClick={this.sortBy.bind(this, col.key)}
+                                    className={(this.state.sort_by != col.key) ? '' : 'sort-' + this.state.sort_dir}>
+                                    {col.name}
+                                </th>
+                            );
+                        }, this)}
+                    </tr>
                     </thead>
 
                     <tbody>
-                        {_.map(rows, function (row, row_i, rows) {
-                            return (
-                                <tr key={row_i}>
-                                    {_.map(cols, function (col, col_i, cols) {
-                                        return this.getCell(row_i, row, col_i, col);
-                                    }, this)}
-                                </tr>
-                            );
-                        }, this)}
+                    {_.map(rows, function (row, row_i, rows) {
+                        return (
+                            <tr key={row_i}>
+                                {_.map(cols, function (col, col_i, cols) {
+                                    return this.getCell(row_i, row, col_i, col);
+                                }, this)}
+                            </tr>
+                        );
+                    }, this)}
                     </tbody>
 
                     <tfoot>
-                        <tr>
-                            <td colSpan="4">
-                                <ul className="pagination">
-                                    <li className={(this.state.page < 2) ? 'disabled' : ''}>
-                                        <a onClick={this.setPage.bind(this, this.state.page - 1)} href="#library_table" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    {pages.map(function (v, i, a) {
-                                        return (
-                                            <li key={i} className={(this.state.page == v) ? 'active' : ''}>
-                                                <a href="#library_table" onClick={this.setPage.bind(this, v)}>{v}</a>
-                                            </li>
-                                        );
-                                    }.bind(this))}
-                                    <li className={(this.state.page >= this.state.total_pages) ? 'disabled' : ''}>
-                                        <a onClick={this.setPage.bind(this, this.state.page + 1)} href="#library_table" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </td>
-                            <td><span className="pull-right">{this.props.rows.length} rows</span></td>
-                        </tr>
+                    <tr>
+                        <td colSpan="4">
+                            <ul className="pagination">
+                                <li className={(this.state.page < 2) ? 'disabled' : ''}>
+                                    <a onClick={this.setPage.bind(this, this.state.page - 1)} href="#library_table"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                {pages.map(function (v, i, a) {
+                                    return (
+                                        <li key={i} className={(this.state.page == v) ? 'active' : ''}>
+                                            <a href="#library_table" onClick={this.setPage.bind(this, v)}>{v}</a>
+                                        </li>
+                                    );
+                                }.bind(this))}
+                                <li className={(this.state.page >= this.state.total_pages) ? 'disabled' : ''}>
+                                    <a onClick={this.setPage.bind(this, this.state.page + 1)} href="#library_table"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td><span className="pull-right">{this.props.rows.length} rows</span></td>
+                    </tr>
                     </tfoot>
                 </table>
 
@@ -330,4 +334,9 @@ export default class SmallGrid extends React.Component {
         }
     }
 
-};
+}
+
+
+if (typeof module !== 'undefined') {
+    module.exports = SmallGrid;
+}

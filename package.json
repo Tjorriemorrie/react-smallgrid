@@ -1,16 +1,18 @@
 {
   "name": "react-smallgrid",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A datatable for react (bootstrap themed)",
+  "keywords": "datagrid, grid, table, datatable",
   "main": "build/smallgrid.js",
   "directories": {
     "build": "build"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --port 8989 --devtool eval --progress --colors --content-base build --hot --inline",
+    "start": "webpack-dev-server --port 8989 --devtool eval --progress --colors --content-base build --hot --inline",
+    "kitchen_sink": "npm run build && webpack-dev-server --config webpack.kitchen_sink.config.js --port 8989 --devtool eval --progress --colors --content-base build --hot --inline",
     "build": "webpack -p",
-    "kitchen_sink": "npm run build && webpack-dev-server --config webpack.kitchen_sink.config.js --port 8989 --devtool eval --progress --colors --content-base build --hot --inline"
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "lodash": "^3.10.0",
