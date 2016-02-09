@@ -336,7 +336,13 @@ class SmallGrid extends React.Component {
 
 }
 
-
-if (typeof module !== 'undefined') {
-    module.exports = SmallGrid;
+class NotWorking extends React.Component {
+    render() {
+        return <div>js fail</div>;
+    }
 }
+
+module.exports = {
+    SmallGrid,
+    FuckYou
+};

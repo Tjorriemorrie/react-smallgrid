@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import data from './data.js';
-import SmallGrid from './../build/smallgrid.js';
+import FuckYou from './../build/smallgrid.js';
 
 
 class KitchenSink extends React.Component {
@@ -18,8 +18,7 @@ class KitchenSink extends React.Component {
                 <h3>Basic usage</h3>
                 <h5>Minimal</h5>
 
-                {console.info('delete this tag and the rendering works')}
-                <SmallGrid
+                <FuckYou
                     rows={this.state.rows}
                     cols={[
                         {'key': 'rating'},
