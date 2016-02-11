@@ -1,8 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
+import './smallgrid.less';
 
 
-class SmallGrid extends React.Component {
+export default class SmallGrid extends React.Component {
 
     constructor(props) {
         console.info('[SmallGrid] constructor');
@@ -335,14 +336,3 @@ class SmallGrid extends React.Component {
     }
 
 }
-
-class NotWorking extends React.Component {
-    render() {
-        return <div>js fail</div>;
-    }
-}
-
-module.exports = {
-    SmallGrid,
-    FuckYou
-};

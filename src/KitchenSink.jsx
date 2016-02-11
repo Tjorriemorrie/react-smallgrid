@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import data from './data.js';
-import FuckYou from './../build/smallgrid.js';
+import SmallGrid from './SmallGrid.jsx';
+require("./main.less");
 
 
-class KitchenSink extends React.Component {
+export default class KitchenSink extends React.Component {
 
     constructor(props) {
         super(props);
@@ -18,7 +19,7 @@ class KitchenSink extends React.Component {
                 <h3>Basic usage</h3>
                 <h5>Minimal</h5>
 
-                <FuckYou
+                <SmallGrid
                     rows={this.state.rows}
                     cols={[
                         {'key': 'rating'},
