@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SmallGrid from './../../dist/js/smallgrid.js';
+import SmallGrid from './../smallgrid.jsx';
 
 
 class MyComponent extends React.Component {
