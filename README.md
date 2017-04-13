@@ -4,29 +4,26 @@ A datatable for react (bootstrap themed)
 Features: pagination, ordering, formatting, editing
 
 
-## Installation
----
+### Installation
 
 Install via npm:
    
-    npm install -S react-smallgrid
-    
+    npm install react-smallgrid
     
     
 #### Dependencies
 
-No dependencies. Optionally [bootstrap](https://getbootstrap.com) class names are used:
+- React
+- Lodash
 
-    bower install -S bootstrap
-    
+Optionally [bootstrap](https://getbootstrap.com) class names are used. Can overwrite same
+class names in your own stylesheet. Otherwise, it is unstyled.
+
 
 ### Usage
 
     import SmallGrid from 'react-smallgrid';
     
-_You can include the bootstrap css stylesheet if you want the styling 
-applied, otherwise create your own css styles with the same class names._
-
 
 ## Basic Usage
 ---
@@ -37,7 +34,7 @@ The table can only be ordered by one column; I'll probably add it to support mul
 columns in the future.
 
 The table is hardcoded with pagination. Currently the row limit/page size is hardcoded at 20. I'll
-probably change it in the future, and you can also easily change it and run the gulp.
+probably change it in the future, and you can also easily change it.
 
 
 ### Minimal
@@ -53,7 +50,7 @@ The `cols` attribute has the following required property for the objects:
 
 
         <SmallGrid
-            rows={this.state.rows}
+            rows={props.rows}
             cols={[
                 {'key': 'rating'},
                 {'key': 'name'},
@@ -62,7 +59,8 @@ The `cols` attribute has the following required property for the objects:
         />
     
 [refer example](examples/1_basic_minimal.html)
-![alt tag](examples/1_basic_minimal.png)
+
+![alt tag](examples/img/basic.png)
 
 
  
@@ -80,7 +78,8 @@ Add the property `name` to the cols objects for the heading of the columns:
             />
 
 [refer example](examples/2_basic_headings.html)
-![alt tag](examples/2_basic_headings.png)
+
+![alt tag](examples/img/headings.png)
 
 
 ### Nested objects
@@ -99,7 +98,8 @@ Add the nested object to the `key` of the columns:
             />
 
 [refer example](examples/3_basic_nested_objects.html)
-![alt tag](examples/3_basic_nested_objects.png)
+
+![alt tag](examples/img/nested.png)
 
 
 ## Advanced Usage
@@ -128,7 +128,8 @@ You can pass `format` function on the `cols` object for the formatting you wish 
 
 
 [refer example](examples/4_advanced_formatting.html)
-![alt tag](examples/4_advanced_formatting.png)
+
+![alt tag](examples/img/formatting.png)
 
 
 ### Editing
@@ -163,8 +164,9 @@ will also be stopped. The function provided to edit will then receive three para
 
 
 [refer example](examples/5_advanced_editing.html)
-![alt tag](examples/5_advanced_editing.png)
 
-![alt tag](examples/5_advanced_editing_values_1.png)
+![alt tag](examples/img/editing.png)
 
-![alt tag](examples/5_advanced_editing_values_2.png)
+![alt tag](examples/img/editing_values_1.png)
+
+![alt tag](examples/img/editing_values_2.png)

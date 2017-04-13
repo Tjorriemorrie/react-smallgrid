@@ -1,4 +1,4 @@
-var data = [
+export default [
     {
         "album": {
             "artist": {

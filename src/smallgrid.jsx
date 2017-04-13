@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+require('./smallgrid.less');
 
 
 export default class SmallGrid extends React.Component{
@@ -64,7 +65,7 @@ export default class SmallGrid extends React.Component{
     }
 
     getCols() {
-        let cols = _.map(this.props.cols, function (col, col_i, cols) {
+        let cols = _.map(this.props.cols, (col, col_i, cols) => {
             // key
             if (col.hasOwnProperty('key')) {
                 // name
@@ -82,7 +83,7 @@ export default class SmallGrid extends React.Component{
                 }
                 return col;
             }
-        }, this);
+        });
         console.info('[SmallGrid] getCols', cols);
         return _.compact(cols);
     }
@@ -184,14 +185,25 @@ export default class SmallGrid extends React.Component{
 
         if (this.state.sort_by) {
             console.info('[SmallGrid] sortRows: sorting');
-            this.props.rows.sort(function (a, b) {
-                let x = a[this.state.sort_by]; let y = b[this.state.sort_by];
+            this.props.rows.sort((a, b) => {
+                let x = _.get(a, this.state.sort_by);
+                let y = _.get(b, this.state.sort_by);
                 if (this.state.sort_dir == 'desc') {
+                    if (!x) {
+                        return -1
+                    } else if (!y) {
+                        return 1
+                    }
                     return ((x < y) ? 1 : ((x > y) ? -1 : 0));
                 } else {
+                    if (!x) {
+                        return -1
+                    } else if (!y) {
+                        return 1
+                    }
                     return ((x < y) ? -1 : ((x > y) ? 1 : 0));
                 }
-            }.bind(this));
+            });
 
         } else {
             console.info('[SmallGrid] sortRows: nothing to sort by');
@@ -214,26 +226,26 @@ export default class SmallGrid extends React.Component{
 
                     <thead>
                         <tr>
-                            {_.map(cols, function (col, col_i, cols) {
+                            {_.map(cols, (col, col_i, cols) => {
                                 return (
                                     <th key={col_i} onClick={this.sortBy.bind(this, col.key)} className={(this.state.sort_by != col.key) ? '' : 'sort-' + this.state.sort_dir}>
                                         {col.name}
                                     </th>
                                 );
-                            }, this)}
+                            })}
                         </tr>
                     </thead>
 
                     <tbody>
-                        {_.map(rows, function (row, row_i, rows) {
+                        {_.map(rows, (row, row_i, rows) => {
                             return (
                                 <tr key={row_i}>
-                                    {_.map(cols, function (col, col_i, cols) {
+                                    {_.map(cols, (col, col_i, cols) => {
                                         return this.getCell(row_i, row, col_i, col);
-                                    }, this)}
+                                    })}
                                 </tr>
                             );
-                        }, this)}
+                        })}
                     </tbody>
 
                     <tfoot>
@@ -245,13 +257,13 @@ export default class SmallGrid extends React.Component{
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
-                                    {pages.map(function (v, i, a) {
+                                    {pages.map((v, i, a) => {
                                         return (
                                             <li key={i} className={(this.state.page == v) ? 'active' : ''}>
                                                 <a href="#library_table" onClick={this.setPage.bind(this, v)}>{v}</a>
                                             </li>
                                         );
-                                    }.bind(this))}
+                                    })}
                                     <li className={(this.state.page >= this.state.total_pages) ? 'disabled' : ''}>
                                         <a onClick={this.setPage.bind(this, this.state.page + 1)} href="#library_table" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
