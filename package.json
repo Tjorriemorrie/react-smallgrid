@@ -1,31 +1,38 @@
 {
   "name": "react-smallgrid",
-  "version": "2.1.3",
+  "version": "2.3.0",
   "description": "A datatable for react (bootstrap themed)",
-  "main": "dist/js/smallgrid.js",
+  "main": "dist/bundle.js",
   "directories": {
-    "src": "src",
     "dist": "dist",
     "examples": "examples"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js --colors -p",
+    "examples": "webpack --config webpack.config.examples.js --colors"
+  },
   "dependencies": {
-    "lodash": "^3.10.0",
-    "react": "~0.14.0",
-    "react-dom": "~0.14.0"
+    "lodash": "^3.10.1",
+    "react": "~0.14.0"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.0.15",
-    "babel-preset-react": "^6.0.15",
-    "babelify": "^7.2.0",
-    "browserify-shim": "^3.8.13",
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^4.0.1",
-    "grunt-contrib-less": "^1.0.1",
-    "grunt-contrib-uglify": "^0.10.0",
-    "grunt-contrib-watch": "^0.6.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "bootstrap": "^3.3.7",
+    "css-loader": "^0.28.0",
+    "file-loader": "^0.11.1",
+    "font-loader": "^0.1.2",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "react-dom": "~0.14.0",
+    "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.3.3"
   },
   "repository": {
     "type": "git",
@@ -36,20 +43,5 @@
   "bugs": {
     "url": "https://github.com/Tjorriemorrie/react-smallgrid/issues"
   },
-  "homepage": "https://github.com/Tjorriemorrie/react-smallgrid#readme",
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browser": {
-    "react": "./node_modules/react/dist/react.js",
-    "react-dom": "./node_modules/react-dom/dist/react-dom.js",
-    "lodash": "./node_modules/lodash"
-  },
-  "browserify-shim": {
-    "./node_modules/react/dist/react.js": "React",
-    "./node_modules/react-dom/dist/react-dom.js": "ReactDOM",
-    "./node_modules/lodash": "lodash"
-  }
+  "homepage": "https://github.com/Tjorriemorrie/react-smallgrid#readme"
 }
