@@ -7,7 +7,9 @@ module.exports = {
     entry: './src/smallgrid.jsx',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        library: 'react-smallgrid',
+        libraryTarget: 'umd'
     },
 
     module: {

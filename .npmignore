@@ -1,0 +1,10 @@
+.idea/
+
+node_modules/
+
+.babelrc
+webpack*
+src/
+tests/
+package.json
+.npmignore
