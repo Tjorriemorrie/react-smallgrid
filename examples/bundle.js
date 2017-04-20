@@ -3372,17 +3372,17 @@ var SmallGrid = function (_React$Component) {
                     var x = _lodash2.default.get(a, _this4.state.sort_by);
                     var y = _lodash2.default.get(b, _this4.state.sort_by);
                     if (_this4.state.sort_dir == 'desc') {
-                        if (!x) {
-                            return -1;
-                        } else if (!y) {
+                        if (_lodash2.default.isNull(x) || _lodash2.default.isUndefined(x)) {
                             return 1;
+                        } else if (_lodash2.default.isNull(y) || _lodash2.default.isUndefined(y)) {
+                            return -1;
                         }
                         return x < y ? 1 : x > y ? -1 : 0;
                     } else {
-                        if (!x) {
-                            return -1;
-                        } else if (!y) {
+                        if (_lodash2.default.isNull(x) || _lodash2.default.isUndefined(x)) {
                             return 1;
+                        } else if (_lodash2.default.isNull(y) || _lodash2.default.isUndefined(y)) {
+                            return -1;
                         }
                         return x < y ? -1 : x > y ? 1 : 0;
                     }
@@ -14038,7 +14038,7 @@ exports.default = [{
     "path_name": "Avril Lavigne/Let Go [2002]/13 Naked.mp3",
     "played_at": "Fri, 31 Jul 2015 15:52:23 GMT",
     "priority": 0.778947368421053,
-    "rating": 0.75,
+    "rating": null,
     "track_number": 13,
     "web_path": "/static/music/Avril Lavigne/Let Go [2002]/13 Naked.mp3"
 }];

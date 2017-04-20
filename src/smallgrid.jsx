@@ -189,17 +189,17 @@ export default class SmallGrid extends React.Component{
                 let x = _.get(a, this.state.sort_by);
                 let y = _.get(b, this.state.sort_by);
                 if (this.state.sort_dir == 'desc') {
-                    if (!x) {
-                        return -1
-                    } else if (!y) {
+                    if (_.isNull(x) || _.isUndefined(x)) {
                         return 1
+                    } else if (_.isNull(y) || _.isUndefined(y)) {
+                        return -1
                     }
                     return ((x < y) ? 1 : ((x > y) ? -1 : 0));
                 } else {
-                    if (!x) {
-                        return -1
-                    } else if (!y) {
+                    if (_.isNull(x) || _.isUndefined(x)) {
                         return 1
+                    } else if (_.isNull(y) || _.isUndefined(y)) {
+                        return -1
                     }
                     return ((x < y) ? -1 : ((x > y) ? 1 : 0));
                 }

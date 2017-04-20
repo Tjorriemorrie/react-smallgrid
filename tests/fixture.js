@@ -2077,7 +2077,7 @@ export default [
         "path_name": "Avril Lavigne/Let Go [2002]/13 Naked.mp3",
         "played_at": "Fri, 31 Jul 2015 15:52:23 GMT",
         "priority": 0.778947368421053,
-        "rating": 0.75,
+        "rating": null,
         "track_number": 13,
         "web_path": "/static/music/Avril Lavigne/Let Go [2002]/13 Naked.mp3"
     }

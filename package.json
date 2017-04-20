@@ -1,6 +1,6 @@
 {
   "name": "react-smallgrid",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "description": "A datatable for react (bootstrap themed)",
   "main": "dist/bundle.js",
   "scripts": {
